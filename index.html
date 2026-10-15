@@ -618,9 +618,11 @@ section{position:relative;padding:76px 28px}
 
   /* ── 갤러리: 작은 사진 img/t01~t25, 크게 보기 img/g01~g25 (원래 비율 유지) ── */
   const R=[540/720,527/720,720/540,720/540,540/720,720/720,720/720,720/540,405/720,720/720,720/405,720/405,720/540,540/720,540/720,720/481,720/333,540/720,720/540,720/481,540/720,527/720,720/405,336/720,540/720];
-  const N=R.length, track=$('#track'), lbt=$('#lbTrack');
+  // 보여 줄 순서 (파일 번호). 5번 사진(이전 표지 사진)은 20번째 자리에
+  const ORDER=[1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,5,21,22,23,24,25];
+  const N=ORDER.length, track=$('#track'), lbt=$('#lbTrack');
   const PH=300, maxW=Math.min(innerWidth*.8,380);
-  R.forEach((r,k)=>{ const i=k+1, n=String(i).padStart(2,'0');
+  ORDER.forEach((file,k)=>{ const r=R[file-1], i=k+1, n=String(file).padStart(2,'0');
     let h=PH, w=PH*r; if(w>maxW){ w=maxW; h=w/r; }
     const c=document.createElement('button'); c.className='polaroid'; c.style.setProperty('--tilt',(k%2?1:-1)*(.6+(k*7%5)*.3)+'deg');
     c.setAttribute('aria-label',`사진 ${i} 크게 보기`);
